@@ -1,7 +1,6 @@
 import "./style.css";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 
 /**
  * Base
@@ -40,12 +39,15 @@ const sizes = {
 };
 
 window.addEventListener("resize", () => {
+	// Update sizes
 	sizes.width = window.innerWidth;
 	sizes.height = window.innerHeight;
 
+	// Update camera
 	camera.aspect = sizes.width / sizes.height;
 	camera.updateProjectionMatrix();
 
+	// Update renderer
 	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 	renderer.setSize(sizes.width, sizes.height);
 });
@@ -69,7 +71,6 @@ camera.position.set(20, 15, 0);
 scene.add(camera);
 
 // lights
-
 const dirLight1 = new THREE.DirectionalLight(0xffffff);
 dirLight1.position.set(100, 100, 100);
 scene.add(dirLight1);
@@ -86,7 +87,6 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.minDistance = 1;
 controls.maxDistance = 500;
-
 controls.maxPolarAngle = Math.PI / 2;
 
 /**
@@ -96,8 +96,8 @@ const renderer = new THREE.WebGLRenderer({
 	canvas: canvas,
 });
 renderer.setClearColor(0xf0f0f0);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 /**
  * Animate
