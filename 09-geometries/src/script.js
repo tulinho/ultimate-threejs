@@ -18,15 +18,30 @@ scene.add(axesHelper);
 /**
  * Object
  */
-const geometry = new THREE.BoxGeometry(3, 1, 3);
+const boxGeometry = new THREE.BoxGeometry(3, 1, 3);
+const planeGeometry = new THREE.PlaneGeometry(2, 4);
+const circleGeometry = new THREE.CircleGeometry(1);
+const coneGeometry = new THREE.ConeGeometry(1.5, 3);
+const cylinderGeometry = new THREE.CylinderGeometry(1, 1, 3, 200, 200);
+
+const geometry = new THREE.Geometry();
+geometry.vertices.push(new THREE.Vector3(0, 0, 0));
+geometry.vertices.push(new THREE.Vector3(0, 2, 0));
+geometry.vertices.push(new THREE.Vector3(2, 0, 0));
+geometry.vertices.push(new THREE.Vector3(0, 0, 2));
+geometry.faces.push(new THREE.Face3(0, 1, 2));
+geometry.faces.push(new THREE.Face3(0, 3, 1));
+geometry.faces.push(new THREE.Face3(2, 1, 3));
+geometry.faces.push(new THREE.Face3(0, 2, 3));
+
 const material = new THREE.MeshPhongMaterial({
-	color: 0xcdcdff,
+	color: 0xffaaaa,
 	flatShading: true,
 });
 const mesh = new THREE.Mesh(geometry, material);
 const mesh2 = new THREE.Mesh(geometry, material);
-mesh.position.set(1.5, geometry.parameters.height * 0.5, 1.5);
-mesh2.position.set(5, geometry.parameters.height * 0.5, 7);
+mesh.position.set(1.5, cylinderGeometry.parameters.radiusBottom * 0.5, 1.5);
+mesh2.position.set(5, cylinderGeometry.parameters.radiusBottom * 0.5, 7);
 scene.add(mesh);
 scene.add(mesh2);
 
@@ -38,6 +53,9 @@ const sizes = {
 	height: window.innerHeight,
 };
 
+/**
+ * Events
+ */
 window.addEventListener("resize", () => {
 	// Update sizes
 	sizes.width = window.innerWidth;
